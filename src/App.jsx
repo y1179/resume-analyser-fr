@@ -4,7 +4,7 @@ import { AuthProvider } from "./features/auth/auth.context.jsx"
 import { InterviewProvider } from "./features/interview/interview.context.jsx"
 
 function App() {
-
+  
   return (
     <AuthProvider>
       <InterviewProvider>
@@ -15,3 +15,14 @@ function App() {
 }
 
 export default App
+
+// function App() {
+//   return (
+//     <div style={{ padding: "50px", color: "black", background: "white" }}>
+//       <h1>React is working</h1>
+//       <p>ResumeAI</p>
+//     </div>
+//   );
+// }
+
+// export default App;

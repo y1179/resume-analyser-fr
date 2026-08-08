@@ -1,142 +1,302 @@
-// import React from 'react'
-// import { useNavigate ,Link } from 'react-router';
-// import "../auth.form.scss";
-// import { useState } from 'react';
-// import { useAuth } from '../hooks/useAuth';
+
+// import React, { useState } from "react";
+// import { useNavigate, Link } from "react-router-dom";
+// import { useAuth } from "../hooks/useAuth";
+// import {
+//   Main,
+//   FormContainer,
+//   Title,
+//   InputGroup,
+//   Label,
+//   Input,
+//   Button,
+//   FullPageLoader, LoaderSpinner,
+//   FooterText,
+//   StyledLink,
+// } from "../auth.form.js";
 
 // const Login = () => {
 //   const { loading, handleLogin } = useAuth();
-  
 //   const navigate = useNavigate();
 
-
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     await handleLogin({ email, password });
-//     navigate("/")
+//     navigate("/");
+//   };
+
+//   if (loading) {
+//     return <FullPageLoader>
+//       <LoaderSpinner />
+//     </FullPageLoader>;
 //   }
-//    if(loading){
-//     return <p>Loading...</p>
-//    }
+
 //   return (
-//     <main>
-//       <div className="form-container">
-//         <h1>Login</h1>
+//     <Main>
+//       <FormContainer>
+//         <Title>Welcome Back 👋</Title>
+
 //         <form onSubmit={handleSubmit}>
-//           <div className="input-group">
-//             <label htmlFor='email'>Email</label>
-//             <input 
-//                onChange={(e)=>{
-//                  setEmail(e.target.value)
-//                }}
-//               type='email' 
-//               id='email' 
-//               name='email' 
-//               placeholder="enter your email" 
+//           <InputGroup>
+//             <Label>Email</Label>
+//             <Input
+//               type="email"
+//               placeholder="Enter your email"
+//               onChange={(e) => setEmail(e.target.value)}
+//               required
 //             />
-//           </div>
+//           </InputGroup>
 
-//           <div className="input-group">
-//             <label htmlFor='password'>Password</label>
-//             <input 
-//                onChange={(e)=>{
-//                  setPassword(e.target.value)
-//                }}
-//               type='password' 
-//               id='password' 
-//               name='password' 
-//               placeholder="enter your password" 
+//           <InputGroup>
+//             <Label>Password</Label>
+//             <Input
+//               type="password"
+//               placeholder="Enter your password"
+//               onChange={(e) => setPassword(e.target.value)}
+//               required
 //             />
-//           </div>
+//           </InputGroup>
+//           <input type="checkbox">Agree to terms and condition</input>
+//           <Button type="submit">
+//             {loading ? "Logging in..." : "Login"}
+//           </Button>
+        
+//  </form>
 
-//           <button className='button primary-button'>
-//             LogIn
-//           </button>
-//         </form>
-//       </div>
-//         <p>Don't have an account?<Link to={"/Register"}>Register</Link></p>
-//     </main>
+//         <FooterText>
+//           Don't have an account?{" "}
+//           <Link to="/Register" style={{ textDecoration: "none" }}>
+//             <StyledLink>Register</StyledLink>
+//           </Link>
+//         </FooterText>
+//       </FormContainer>
+//     </Main>
 //   );
 // };
 
 // export default Login;
 
+
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
+
 import {
   Main,
   FormContainer,
+  Logo,
+  LogoIcon,
   Title,
+  Subtitle,
   InputGroup,
   Label,
+  InputWrapper,
   Input,
   Button,
-  FullPageLoader, LoaderSpinner,
+  Divider,
   FooterText,
-  StyledLink,
+  Terms,
+  Checkbox,
+  TermsText,
+  DemoText,
+  AuthError,
 } from "../auth.form.js";
 
 const Login = () => {
-  const { loading, handleLogin } = useAuth();
   const navigate = useNavigate();
+  const { loading, handleLogin } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await handleLogin({ email, password });
-    navigate("/");
-  };
+    setError("");
 
-  if (loading) {
-    return <FullPageLoader>
-      <LoaderSpinner />
-    </FullPageLoader>;
-  }
+    if (!agreeTerms) {
+      setError("Please agree to the Terms & Conditions.");
+      return;
+    }
+
+    const result = await handleLogin({
+      email,
+      password,
+    });
+
+    if (result?.success) {
+      navigate("/");
+    } else {
+      setError(
+        result?.message || "Invalid email or password."
+      );
+    }
+  };
 
   return (
     <Main>
       <FormContainer>
-        <Title>Welcome Back 👋</Title>
+
+        {/* Logo */}
+        <Logo>
+          <LogoIcon>✦</LogoIcon>
+
+          <span>
+            Resume<span>AI</span>
+          </span>
+        </Logo>
+
+        {/* Heading */}
+        <Title>Welcome back 👋</Title>
+
+        <Subtitle>
+          Sign in to continue analyzing your resume
+          and preparing for your next interview.
+        </Subtitle>
+
+        {/* Error */}
+        {error && (
+          <AuthError>
+            {error}
+          </AuthError>
+        )}
 
         <form onSubmit={handleSubmit}>
+
+          {/* Email */}
           <InputGroup>
-            <Label>Email</Label>
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <Label htmlFor="email">
+              Email address
+            </Label>
+
+            <InputWrapper>
+              <Input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) =>
+                  setEmail(e.target.value)
+                }
+                autoComplete="email"
+                required
+              />
+            </InputWrapper>
           </InputGroup>
 
+          {/* Password */}
           <InputGroup>
-            <Label>Password</Label>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <Label htmlFor="password">
+              Password
+            </Label>
+
+            <InputWrapper>
+              <Input
+                id="password"
+                type={
+                  showPassword
+                    ? "text"
+                    : "password"
+                }
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) =>
+                  setPassword(e.target.value)
+                }
+                autoComplete="current-password"
+                required
+              />
+
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() =>
+                  setShowPassword(!showPassword)
+                }
+                aria-label={
+                  showPassword
+                    ? "Hide password"
+                    : "Show password"
+                }
+              >
+                {showPassword ? (
+                  <EyeOff size={19} />
+                ) : (
+                  <Eye size={19} />
+                )}
+              </button>
+            </InputWrapper>
           </InputGroup>
 
-          <Button type="submit">
-            {loading ? "Logging in..." : "Login"}
+          {/* Terms */}
+          <Terms>
+            <Checkbox
+              type="checkbox"
+              id="terms"
+              checked={agreeTerms}
+              onChange={(e) =>
+                setAgreeTerms(e.target.checked)
+              }
+            />
+
+            <TermsText htmlFor="terms">
+              I agree to the{" "}
+              <Link
+                to="/terms"
+                className="auth-link"
+              >
+                Terms & Conditions
+              </Link>{" "}
+              and Privacy Policy.
+            </TermsText>
+          </Terms>
+
+          {/* Login button */}
+          <Button
+            type="submit"
+            disabled={loading || !agreeTerms}
+          >
+            {loading ? (
+              <>
+                <span className="button-loader" />
+                Logging in...
+              
+              </>
+            ) : (
+              <>
+                Login
+                <ArrowRight size={18} />
+              </>
+            )}
           </Button>
-        
- </form>
+
+        </form>
+
+        {/* Divider */}
+        <Divider>
+          <span>OR</span>
+        </Divider>
+
+        {/* Register */}
+        <DemoText>
+          Don't have an account yet?
+        </DemoText>
 
         <FooterText>
-          Don't have an account?{" "}
-          <Link to="/Register" style={{ textDecoration: "none" }}>
-            <StyledLink>Register</StyledLink>
+          <Link
+            to="/register"
+            className="auth-link"
+          >
+            Create an account
           </Link>
         </FooterText>
+
       </FormContainer>
     </Main>
   );

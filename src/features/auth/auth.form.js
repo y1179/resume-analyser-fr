@@ -1,187 +1,409 @@
-// main{
-//     min-height:100vh;
-//     width:100vw;
-//     display:flex;
-//     flex-direction:column;
-//     background-color:rgb(137, 107, 107) ;
-//     justify-content:center;
-//     align-items:center;
-//  h1{
-//     color:black;
-//  }
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-//     .form-container{
-//         background-color:rgb(255, 255, 255);
-//         padding:2rem;
-//         border-radius:0.7rem;
-//         display:flex;
-//         flex-direction:column;
-//         gap:1rem;
-//         min-width:400px;
-//     }
-//     form{
-//         display:flex;
-//         flex-direction:column;
-//         gap:0.3rem;
-//     }
-//     .input-group{
-//         display:flex;
-//         flex-direction:column;
-//         gap:0.75rem;
-//     }
-//         input{
-//             border:none;
-//             outline:none;
-//             padding-inline:1rem;
-//             padding-block:0.7rem;
-//             border-radius:0.7rem;        }
-//         }
-//         .button{
-//             border:none;
-//             outline:none;
-//             margin-top: 0.7rem;
-//             padding-inline:1rem;
-//             padding-block:0.7rem;
-//             border-radius:0.7rem;
-//             background-color: #007bff;
-//             color: rgb(250, 247, 247);
-//             cursor: pointer;
-//         }
-        
-import { styled, keyframes } from "@stitches/react";
+export const Main = styled.main`
+  min-height: 100vh;
+  width: 100%;
 
-export const Main = styled("main", {
-  minHeight: "100vh",
-  width: "100vw",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  background: "linear-gradient(135deg, #1e293b, #0f172a)",
-});
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-export const FormContainer = styled("div", {
-  backgroundColor: "#fff",
-  padding: "2.5rem",
-  borderRadius: "1rem",
-  width: "380px",
-  boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-  display: "flex",
-  flexDirection: "column",
-  gap: "1.5rem",
-});
+  padding: 32px 20px;
 
-export const Title = styled("h1", {
-  textAlign: "center",
-  fontSize: "1.8rem",
-  fontWeight: "600",
-  color: "#333",
-});
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(99, 102, 241, 0.14),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(139, 92, 246, 0.12),
+      transparent 30%
+    ),
+    #080b14;
 
-export const InputGroup = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "0.4rem",
-});
+  box-sizing: border-box;
+`;
 
-export const Label = styled("label", {
-  fontSize: "0.9rem",
-  color: "#555",
-});
+export const FormContainer = styled.div`
+  width: 100%;
+  max-width: 430px;
+  padding: 40px;
 
-export const Input = styled("input", {
-  padding: "0.8rem 1rem",
-  borderRadius: "0.6rem",
-  border: "1px solid #ddd",
-  outline: "none",
-  fontSize: "0.95rem",
-  transition: "all 0.2s ease",
+  background: #0d1120;
 
-  "&:focus": {
-    borderColor: "#667eea",
-    boxShadow: "0 0 0 2px rgba(102,126,234,0.2)",
-  },
-});
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 24px;
 
-// export const Button = styled("button", {
-//   display: "block",
-//    margin: "0.8rem auto 0 auto",
-//   //marginTop: "0.8rem",
-//   padding: "0.78rem  1.6rem",
-//   borderRadius: "0.6rem",
-//   border: "none",
-//   background: "linear-gradient(135deg, #667eea, #764ba2)",
-//   color: "white",
-//   fontWeight: "600",
-//   fontSize: "1.23rem",
-//   cursor: "pointer",
-//   transition: "all 0.2s ease",
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.2);
 
-//   "&:hover": {
-//     transform: "translateY(-1px)",
-//     boxShadow: "0 10px 20px rgba(0,0,0,0.15)",
-//   },
-// });
+  box-sizing: border-box;
 
+  @media (max-width: 500px) {
+    padding: 30px 22px;
+    border-radius: 20px;
+  }
+`;
 
-const spin = keyframes({
-  "0%": { transform: "rotate(0deg)" },
-  "100%": { transform: "rotate(360deg)" },
-});
+export const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
 
-export const Button = styled("button", {
-  width: "100%",
-  marginTop: "0.8rem",
-  padding: "0.9rem",
-  borderRadius: "0.6rem",
-  border: "none",
-  background: "linear-gradient(135deg, #667eea, #764ba2)",
-  color: "white",
-  fontWeight: "600",
-  fontSize: "1rem",
-  cursor: "pointer",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "0.5rem",
+  margin-bottom: 30px;
 
-  "&:disabled": {
-    opacity: 0.7,
-    cursor: "not-allowed",
-  },
-});
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+
+  color: #94a3b8;
+  span span {
+    color: #6366f1;
+  }
+`;
+
+export const LogoIcon = styled.div`
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: linear-gradient(
+    135deg,
+    #6366f1,
+    #8b5cf6
+  );
+  color: white;
+
+  box-shadow:
+    0 8px 20px rgba(99, 102, 241, 0.25);
+`;
+export const Title = styled.h1`
+  margin: 0;
+  text-align: center;
+
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: -0.8px;
+
+  color: #f1f5f9;
+
+  @media (max-width: 500px) {
+    font-size: 26px;
+  }
+`;
+export const Subtitle = styled.p`
+  max-width: 350px;
+  margin: 12px auto 30px;
+
+  text-align: center;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  color: #94a3b8;
+   @media (max-width: 500px) {
+    font-size: 6px;
+  }
+`;
 
 
 
-export const FullPageLoader = styled("div", {
-  height: "100vh",
-  width: "100vw",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  background: "linear-gradient(135deg, #667eea, #764ba2)",
-});
+export const InputGroup = styled.div`
+  margin-bottom: 20px;
+`;
 
-export const LoaderSpinner = styled("div", {
-  width: "40px",
-  height: "40px",
-  border: "4px solid white",
-  borderTop: "4px solid transparent",
-  borderRadius: "50%",
-  animation: `${spin} 0.8s linear infinite`,
-});
+export const Label = styled.label`
+  display: block;
 
-export const FooterText = styled("p", {
-  textAlign: "center",
-  fontSize: "0.9rem",
-  color: "#555",
-});
+  margin-bottom: 8px;
 
-export const StyledLink = styled("span", {
-  color: "#667eea",
-  fontWeight: "500",
-  cursor: "pointer",
+  font-size: 13px;
+  font-weight: 650;
 
-  "&:hover": {
-    textDecoration: "underline",
-  },
-});
+  color: #334155;
+`;
+
+export const InputWrapper = styled.div`
+  position: relative;
+
+  .password-toggle {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px;
+
+    border: none;
+    background: transparent;
+
+    color: #94a3b8;
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #475569;
+    }
+  }
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  height: 48px;
+
+  padding: 0 14px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  color: #0f172a;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+
+  &::placeholder {
+    color: #a1aab8;
+  }
+
+  &:hover {
+    border-color: #cbd5e1;
+  }
+
+  &:focus {
+    border-color: #6366f1;
+
+    box-shadow:
+      0 0 0 3px rgba(99, 102, 241, 0.12);
+
+    background: #ffffff;
+  }
+
+  &[type="password"] {
+    padding-right: 48px;
+  }
+
+  &[type="text"] {
+    padding-right: 48px;
+  }
+`;
+
+export const Terms = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+
+  margin: 4px 0 22px;
+`;
+
+export const Checkbox = styled.input`
+  width: 16px;
+  height: 16px;
+
+  margin-top: 2px;
+
+  accent-color: #6366f1;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+`;
+
+export const TermsText = styled.label`
+  font-size: 12px;
+  line-height: 1.5;
+
+  color: #64748b;
+
+  cursor: pointer;
+`;
+
+
+export const Button = styled.button`
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #6366f1,
+    #7c3aed
+  );
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px rgba(99, 102, 241, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+
+    box-shadow:
+      0 12px 25px rgba(99, 102, 241, 0.28);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .button-loader {
+    width: 17px;
+    height: 17px;
+
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: white;
+
+    border-radius: 50%;
+
+    animation: spin 0.7s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+export const Divider = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 26px 0 20px;
+
+  color: #cbd5e1;
+
+  &::before,
+  &::after {
+    content: "";
+
+    height: 1px;
+    flex: 1;
+
+    background: #e2e8f0;
+  }
+
+  span {
+    font-size: 10px;
+    font-weight: 650;
+    color: #94a3b8;
+  }
+`;
+
+export const DemoText = styled.p`
+  margin: 0 0 5px;
+
+  text-align: center;
+
+  font-size: 13px;
+  color: #64748b;
+`;
+export const FooterText = styled.div`
+  text-align: center;
+  font-size: 14px;
+
+  .auth-link {
+    color: #94a3b8;
+    font-weight: 650;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #4f47ee;
+      text-decoration: underline;
+    }
+  }
+`;
+
+export const FullPageLoader = styled.div`
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f8fafc;
+`;
+
+export const LoaderSpinner = styled.div`
+  width: 35px;
+  height: 35px;
+
+  border: 3px solid #e2e8f0;
+  border-top-color: #6366f1;
+
+  border-radius: 50%;
+
+  animation: spin 0.7s linear infinite;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+
+export const AuthError = styled.div`
+  margin-bottom: 20px;
+  padding: 12px 14px;
+
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+
+  background: #fef2f2;
+  color: #dc2626;
+
+  font-size: 13px;
+  line-height: 1.4;
+`;
+
