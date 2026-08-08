@@ -1,20 +1,27 @@
-import { useAuth } from "../hooks/useAuth";
+import React from "react";
 import { Navigate } from "react-router";
-import React from 'react'
+import { useAuth } from "../hooks/useAuth";
 
-const Protected = ({children}) => {
-    const { loading,user } = useAuth()
+const Protected = ({ children }) => {
+  const { user, loading } = useAuth();
 
+  // ← Wait for session restore to finish before checking user
+  if (loading) {
+    return (
+      <main className="loading-screen">
+        <div className="loading-spinner" />
+        <p>Loading...</p>
+      </main>
+    );
+  }
 
-    if(loading){
-        return (<main><h1>Loading...</h1></main>)
-    }
+  // Session checked — no user found, go to login
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
-    if(!user){
-        return <Navigate to={'/login'} />
-    }
-    
-    return children
-}
+  // User exists — render the protected page
+  return children;
+};
 
-export default Protected
+export default Protected;
