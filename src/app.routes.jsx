@@ -26,13 +26,52 @@
 // ])
 
 
-import { createBrowserRouter } from "react-router";
+// import { createBrowserRouter } from "react-router";
+// import Login from "./features/auth/pages/Login";
+// import Register from "./features/auth/pages/Register";
+
+// import Landing from "./features/landing/Landing";
+
+// import Interview from "./features/interview/pages/Interview";
+// import Protected from "./features/auth/components/Protected";
+
+// export const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Landing />,
+//   },
+
+//   {
+//     path: "/login",
+//     element: <Login />,
+//   },
+
+//   {
+//     path: "/register",
+//     element: <Register />,
+//   },
+
+//   {
+//     path: "/interview/:interviewId",
+//     element: (
+//       <Protected>
+//         <Interview />
+//       </Protected>
+//     ),
+//   },
+// ]);
+
+
+import { createBrowserRouter } from "react-router-dom";
+
 import Login from "./features/auth/pages/Login";
 import Register from "./features/auth/pages/Register";
 
 import Landing from "./features/landing/Landing";
 
+import InterviewHome from "./features/interview/pages/Home";
 import Interview from "./features/interview/pages/Interview";
+
 import Protected from "./features/auth/components/Protected";
 
 export const router = createBrowserRouter([
@@ -52,11 +91,25 @@ export const router = createBrowserRouter([
   },
 
   {
+    path: "/home",
+    element: (
+      <Protected>
+        <InterviewHome />
+      </Protected>
+    ),
+  },
+
+  {
     path: "/interview/:interviewId",
     element: (
       <Protected>
         <Interview />
       </Protected>
     ),
+  },
+
+  {
+    path: "*",
+    element: <div>404 - Page not found</div>,
   },
 ]);

@@ -131,8 +131,8 @@ const Login = () => {
     });
 
     if (result?.success) {
-      navigate("/");
-    } else {
+  navigate("/home");
+}else {
       setError(
         result?.message || "Invalid email or password."
       );
