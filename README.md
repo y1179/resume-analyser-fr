@@ -1,147 +1,93 @@
-# AI Resume Analyzer
+# ResumeAI — Frontend
 
-## Overview
+The client for InterviewAI, an AI-powered resume analyzer and interview prep tool. Paste a job description, upload your resume (or write a quick self-description), and get back an ATS match score, tailored interview questions, and a personalized prep roadmap — all in one page.
 
-AI Resume Analyzer is a full-stack AI-powered web application that helps job seekers evaluate their resumes against specific job descriptions.
-
-Users can upload a resume and provide a job description. The application analyzes both inputs using Groq AI and generates detailed insights, including matching skills, missing skills, interview questions, and personalized improvement suggestions.
-
-The goal of this project is to help candidates improve their resumes and increase their chances of getting shortlisted for interviews.
+**Live demo:** `https://analyserresume.netlify.app/`
+**Backend repo:** `https://github.com/y1179/resume-analyser-back`
 
 ---
 
-## Features
+## ✨ Features
 
-### Resume Analysis
-
-* Upload resume
-* Paste job description
-* AI-powered comparison
-
-### Skill Matching
-
-* Identify matching technical skills
-* Highlight strengths in the resume
-* Calculate job relevance
-
-### Skill Gap Analysis
-
-* Detect missing skills
-* Suggest areas for improvement
-
-### Interview Preparation
-
-* Generate technical interview questions
-* Generate behavioral interview questions
-
-### Personalized Suggestions
-
-* Resume enhancement recommendations
-* Learning path suggestions
-* Career growth insights
+- Paste a job description and upload a resume (PDF/DOCX) or write a quick self-description
+- View an animated ATS match score with a full breakdown (skills, experience, keywords, education)
+- Browse tailored technical and behavioral interview questions, each with the interviewer's intention and a model answer
+- Follow a personalized 7-day preparation roadmap
+- See flagged skill gaps for the target role
+- Download an ATS-optimized resume as a PDF, generated from your actual data
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-### Frontend
-
-* React.js
-* JavaScript
-* CSS
-* Axios
-
-### Backend
-
-* Node.js
-* Express.js
-
-### Database
-
-* MongoDB
-
-### AI
-
-* Groq AI
-
-### Deployment
-
-* Netlify (Frontend)
-* Render (Backend)
+| Layer | Technology |
+|---|---|
+| Framework | React (Vite) |
+| Routing | React Router |
+| HTTP client | Axios |
+| Styling | SCSS |
+| Auth | HTTP-only cookie session (via backend) |
 
 ---
 
-## Application Workflow
+## 📂 Project Structure
 
-1. User uploads a resume.
-2. User enters a job description.
-3. Frontend sends data to the backend API.
-4. Backend processes the request.
-5. Groq AI analyzes the resume and job description.
-6. Analysis results are returned.
-7. Results are displayed in a user-friendly dashboard.
-
-
-## Project Structure
-
+```
+Frontend/
 src/
-
+├── features/
+│   ├── auth/
+│   ├── interview/
+│   └── landing/
 ├── components/
-
-├── pages/
-
-├── services/
-
-├── hooks/
-
 ├── assets/
-
-├── App.jsx
-
-└── main.jsx
+└── App.jsx
+```
 
 ---
 
-## Installation
+## ⚙️ Environment Variables
 
-Clone the repository
-git clone <frontend-repository-url>
-Install dependencies
+Create a `.env` file in the project root:
+
+```env
+VITE_API_BASE_URL=https://your-backend-url.onrender.com
+```
+
+---
+
+## 🚀 Getting Started
+
+```bash
+# Clone the repo
+git clone [your frontend repo URL]
+cd Frontend
+
+# Install dependencies
 npm install
-Run development server
+
+# Add your .env file (see above)
+
+# Run in development
 npm run dev
-Build for production
+
+# Build for production
 npm run build
+```
+
+Runs at `http://localhost:5173` by default (Vite's default port).
 
 ---
 
-## Key Insights Generated
+## 🔗 How It Connects to the Backend
 
-The application provides:
+All API calls go through a shared Axios instance (`useInterview.js`) configured with `withCredentials: true`, so authentication is handled entirely via an HTTP-only cookie set by the backend — no tokens are stored or sent manually from the client.
 
-* Matching Skills
-* Missing Skills
-* Technical Questions
-* Behavioral Questions
-* Resume Strengths
-* Improvement Suggestions
+| Action | Backend endpoint |
+|---|---|
+| Generate a new report | `POST /api/interview/` |
+| View a saved report | `GET /api/interview/report/:interviewId` |
+| View all reports | `GET /api/interview/` |
+| Download ATS resume PDF | `POST /api/interview/resume/pdf/:interviewReportId` |
 
----
-
-## Future Enhancements
-
-* ATS Score Calculation
-* User Authentication
-* Resume History Tracking
-* PDF Report Export
-* Cover Letter Generator
-* Multiple Resume Comparison
-
----
-
-## Author
-
-Yas Patle
-Frontend Developer | React.js Developer
-GitHub: [Add GitHub Profile]
-LinkedIn: [Add LinkedIn Profile]
+See the [backend README](../Backend/README.md) for full API details.
